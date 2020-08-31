@@ -1,31 +1,34 @@
 package com.example.hismemberservice;
 
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.hismemberservice.bo.PackageBO;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-public class HisMemberServiceApplication implements InitializingBean {
-
-    @Value("${env}")
-    private String env;
+@RestController
+public class HisMemberServiceApplication{
 
     public static void main(String[] args) {
         SpringApplication.run(HisMemberServiceApplication.class, args);
     }
 
-    public String getEnv() {
-        return env;
-    }
+    @RequestMapping(value = "/package/detail/{bizId}")
+    public PackageBO getPackageByBizId(@PathVariable String bizId) {
 
-    public void setEnv(String env) {
-        this.env = env;
-    }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println(env);
+        PackageBO packageBO = new PackageBO();
+        packageBO.setBizId("12222");
+        packageBO.setPackageName("套餐");
+        packageBO.setPrice(1212);
+        return packageBO;
     }
 
 }
